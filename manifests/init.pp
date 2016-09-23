@@ -51,7 +51,7 @@ class mcollective (
   $common_package = $::osfamily ? {
     'FreeBSD' => 'mcollective',
     default => 'mcollective-common',
-  }
+  },
   # server-specific
   $server_config_file = undef, # default dependent on $confdir
   $server_logfile     = '/var/log/mcollective.log',
@@ -61,7 +61,7 @@ class mcollective (
   $service_name = $::osfamily ? {
     'FreeBSD' => 'mcollectived',
     default => 'mcollective',
-  }
+  },
   $service_ensure     = 'running',
   $service_enable     = true,
   $server_package     = 'mcollective',

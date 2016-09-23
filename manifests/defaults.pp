@@ -6,7 +6,11 @@
 # list, it's leak and prevents users from actually having control.
 class mcollective::defaults {
   if versioncmp($::puppetversion, '4') < 0 {
-    $confdir = '/etc/mcollective'
+    $confdir = $::osfamily ? {
+      'Debian'  => '/etc/mcollective',
+      'FreeBSD' => '/usr/local/etc/mcollective',
+      default => '/etc/mcollective',
+    }
     $_core_libdir = $::osfamily ? {
       'Debian'  => '/usr/share/mcollective/plugins',
       'OpenBSD' => '/usr/local/libexec/mcollective',
@@ -19,6 +23,7 @@ class mcollective::defaults {
     $site_libdir = $::osfamily ? {
       'Debian'  => '/usr/local/share/mcollective',
       'OpenBSD' => regsubst($::rubyversion, '^(\d+)\.(\d+)\.(\d+)$', '/usr/local/lib/ruby/vendor_ruby/\1.\2/mcollective'),
+      'FreeBSD'  => '/usr/local/share/mcollective',
       default   => '/usr/local/libexec/mcollective',
     }
   } else {

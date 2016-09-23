@@ -49,7 +49,7 @@ class mcollective (
 
   # common
   $common_package = $::osfamily ? {
-    'FreeBSD' => 'mcollective',
+    'FreeBSD' => 'mcollective-puppet-common',
     default => 'mcollective-common',
   },
   # server-specific
@@ -72,8 +72,11 @@ class mcollective (
   $client_config_file  = undef, # default dependent on $confdir
   $client_logger_type  = 'console',
   $client_loglevel     = 'warn',
-  $client_package      = 'mcollective-client',
-
+  $client_package      = $::osfamily ? {
+    'FreeBSD' => 'mcollective-puppet-client',
+    default => 'mcollective-client',
+  },
+  
   # ssl certs
   $ssl_ca_cert          = undef,
   $ssl_server_public    = undef,

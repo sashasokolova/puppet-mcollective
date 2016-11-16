@@ -22,7 +22,7 @@ define mcollective::user::connector(
       setting  => "plugin.${connector}.pool.${i}.ssl.cert",
       username => $username,
       order    => $order,
-      value    => "${homedir}/.mcollective.d/credentials/certs/server_public.pem",
+      value    => "${homedir}/.mcollective.d/credentials/certs/server_cert.pem",
     }
 
     mcollective::user::setting { "${username} plugin.${connector}.pool.${i}.ssl.key":

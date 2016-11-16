@@ -109,7 +109,8 @@ class mcollective (
 
   $ssldir = "${confdir}/ssl"
 
-  $ssl_client_certs_dir_real = pick_default($ssl_client_certs_dir, "${ssldir}/clients")
+#  $ssl_client_certs_dir_real = pick_default($ssl_client_certs_dir, "${ssldir}/clients")
+  $ssl_client_certs_dir_real = "${ssldir}/clients"
   $ssl_server_public_path    = "${ssldir}/server_public.pem"
   $ssl_server_private_path   = "${ssldir}/server_private.pem"
 

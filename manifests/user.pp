@@ -83,6 +83,15 @@ define mcollective::user(
       group  => $group,
       mode   => '0444',
     }
+ 
+    file { "${homedir_real}/.mcollective.d/credentials/certs/server_cert.pem":
+      ensure => 'file',
+      source => $certificate,
+      owner  => $username,
+      group  => $group,
+      mode   => '0444',
+    }
+
 
     file { "${homedir_real}/.mcollective.d/credentials/certs/server_public.pem":
       ensure => 'file',

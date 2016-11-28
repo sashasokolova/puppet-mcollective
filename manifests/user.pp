@@ -28,6 +28,8 @@ define mcollective::user(
   $securityprovider  = undef,
   $connector         = undef,
   $ssl_ciphers       = undef,
+  $client_loglevel   = undef,
+  $client_logger_type = undef,
 ) {
 
   include ::mcollective
@@ -40,6 +42,8 @@ define mcollective::user(
   $_securityprovider  = pick_default($securityprovider, $::mcollective::securityprovider)
   $_connector         = pick_default($connector, $::mcollective::connector)
   $_ssl_ciphers       = pick_default($ssl_ciphers, $::mcollective::ssl_ciphers)
+  $_client_loglevel   = pick_default($client_loglevel, $::mcollective::client_loglevel)
+  $_client_logger_type  = pick_default($client_logger_type, $::mcollective::client_logger_type,)
 
   # Validate that both forms of data weren't given
   if $certificate and $certificate_content {
@@ -172,16 +176,19 @@ define mcollective::user(
         mode   =>  '0444',
       }
     }
-    mcollective::user::setting { "${username}:client_loglevel":
+    #Loglevel for users. By default loglevel = warn, logger_type=console in init.pp.
+    mcollective::user::setting { "${username}:loglevel":
       setting => 'loglevel',
-      value => $mcollective::client_loglevel,
+      username => $username,
+      value => $_client_loglevel,
     }
 
     mcollective::user::setting { "${username}:logger_type":
-      setting => 'logger_type'
-      value => $mcollective::client_logger_type,
+      setting => 'logger_type',
+      username => $username,
+      value => $_client_logger_type,
     }
-    
+
     mcollective::user::setting { "${username}:plugin.ssl_client_public":
       setting  => 'plugin.ssl_client_public',
       username => $username,

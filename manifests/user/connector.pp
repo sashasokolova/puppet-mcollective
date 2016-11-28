@@ -11,13 +11,6 @@ define mcollective::user::connector(
   $i = regsubst($title, "^${username}_", '')
 
   if $middleware_ssl {
-    mcollective::user::setting { 'loglevel':
-      value => $mcollective::client_loglevel,
-    }
-
-    mcollective::user::setting { 'logger_type':
-      value => $mcollective::client_logger_type,
-    }
 
     mcollective::user::setting { "${username} plugin.${connector}.pool.${i}.ssl.ca":
       setting  => "plugin.${connector}.pool.${i}.ssl.ca",

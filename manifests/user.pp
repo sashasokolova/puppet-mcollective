@@ -172,7 +172,16 @@ define mcollective::user(
         mode   =>  '0444',
       }
     }
+    mcollective::user::setting { "${username}:client_loglevel":
+      setting => 'loglevel',
+      value => $mcollective::client_loglevel,
+    }
 
+    mcollective::user::setting { "${username}:logger_type":
+      setting => 'logger_type'
+      value => $mcollective::client_logger_type,
+    }
+    
     mcollective::user::setting { "${username}:plugin.ssl_client_public":
       setting  => 'plugin.ssl_client_public',
       username => $username,

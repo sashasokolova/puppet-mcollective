@@ -24,6 +24,7 @@ define mcollective::user::connector(
       username => $username,
       order    => $order,
       value    => "${homedir}/.mcollective.d/credentials/certs/server_cert.pem",
+#      value    => "${homedir}/.mcollective.d/credentials/certs/server_public.pem",
     }
 
     mcollective::user::setting { "${username} plugin.${connector}.pool.${i}.ssl.key":

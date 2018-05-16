@@ -27,9 +27,16 @@ class mcollective::defaults {
       default   => '/usr/local/libexec/mcollective',
     }
   } else {
-    $confdir     = '/etc/puppetlabs/mcollective'
+    $confdir = $::osfamily ? {
+      'FreeBSD' => '/usr/local/etc/mcollective',
+      default => '/etc/puppetlabs/mcollective',
+    }
     $_core_libdir = '/opt/puppetlabs/mcollective/plugins'
-    $site_libdir = '/opt/puppetlabs/mcollective'
+
+    $site_libdir = $::osfamily ? {
+      'FreeBSD'  => '/usr/local/share/mcollective',
+      default => '/opt/puppetlabs/mcollective',
+    }
   }
 
   # Since mcollective version 2.8, there is no core libdir
